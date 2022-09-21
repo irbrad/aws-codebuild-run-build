@@ -24,15 +24,15 @@ function runBuild() {
 
   // Get input options for startBuild
   const params = inputs2Parameters(githubInputs());
-  const isBatch = core.getInput("batch").toString().toLowerCase() === "TRUE";
+  const batch = core.getInput("batch", { required: true });
 
   console.log(
     "*****isBatch*****",
-    isBatch,
+    batch.toString().toLowerCase() === "true",
     core.getInput("batch"),
-    core.getInput("batch").toString().toLowerCase() === "TRUE"
+    core.getInput("batch").toString().toLowerCase() === "true"
   );
-  if (isBatch) {
+  if (batch.toString().toLowerCase() === "true") {
     console.log("*****isBatch true*****");
     return buildBatch(sdk, params);
   } else {
