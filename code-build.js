@@ -24,14 +24,20 @@ function runBuild() {
 
   // Get input options for startBuild
   const params = inputs2Parameters(githubInputs());
+  const isBatch = core.getInput("batch").toString().toLowerCase() === "TRUE";
 
-  console.log('*****params.batch*****', params.batch);
-  if (params.batch && params.batch.toString().toLowerCase() === 'true') {
-    console.log('params.batch true');
+  console.log(
+    "*****isBatch*****",
+    isBatch,
+    core.getInput("batch"),
+    core.getInput("batch").toString().toLowerCase() === "TRUE"
+  );
+  if (isBatch) {
+    console.log("*****isBatch true*****");
     return buildBatch(sdk, params);
   } else {
-    console.log('params.batch false, skipping run');
-    // return build(sdk, params);
+    console.log("*****isBatch false*****");
+    return build(sdk, params);
   }
 }
 
@@ -289,11 +295,10 @@ function githubInputs() {
     core.getInput("compute-type-override", { required: false }) || undefined;
 
   const environmentTypeOverride =
-    core.getInput("environment-type-override", { required: false }) || undefined;
+    core.getInput("environment-type-override", { required: false }) ||
+    undefined;
   const imageOverride =
     core.getInput("image-override", { required: false }) || undefined;
-  const batch =
-    core.getInput("batch", { required: false }) || undefined;
 
   const envPassthrough = core
     .getInput("env-vars-for-codebuild", { required: false })
@@ -310,7 +315,6 @@ function githubInputs() {
     computeTypeOverride,
     environmentTypeOverride,
     imageOverride,
-    batch,
     envPassthrough,
   };
 }
@@ -325,7 +329,6 @@ function inputs2Parameters(inputs) {
     computeTypeOverride,
     environmentTypeOverride,
     imageOverride,
-    batch,
     envPassthrough = [],
   } = inputs;
 
@@ -349,7 +352,6 @@ function inputs2Parameters(inputs) {
     computeTypeOverride,
     environmentTypeOverride,
     imageOverride,
-    batch,
     environmentVariablesOverride,
   };
 }
