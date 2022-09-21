@@ -26,9 +26,12 @@ function runBuild() {
   const params = inputs2Parameters(githubInputs());
   const isBatch = core.getInput("batch").toUpper() === "TRUE";
 
+  console.log('isBatch', isBatch, core.getInput("batch"), core.getInput("batch").toUpper() === "TRUE");
   if (isBatch) {
+    console.log('isBatch true');
     return buildBatch(sdk, params);
   } else {
+    console.log('isBatch false');
     return build(sdk, params);
   }
 }
