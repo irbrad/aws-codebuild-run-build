@@ -25,13 +25,13 @@ function runBuild() {
   // Get input options for startBuild
   const params = inputs2Parameters(githubInputs());
 
-  console.log('params.batch', params.batch);
+  console.log('*****params.batch*****', params.batch);
   if (params.batch && params.batch.toString().toLowerCase() === 'true') {
     console.log('params.batch true');
     return buildBatch(sdk, params);
   } else {
-    console.log('params.batch false');
-    return build(sdk, params);
+    console.log('params.batch false, skipping run');
+    // return build(sdk, params);
   }
 }
 
