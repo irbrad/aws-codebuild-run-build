@@ -22,6 +22,15 @@ The only required input is `project-name`.
    that CodeBuild requires.
    By default, the action uses the buildspec file location
    that you configured in the CodeBuild project.
+1. **compute-type-override** (optional) :
+   The name of a compute type for this build that overrides the one specified
+   in the build project.
+1. **environment-type-override** (optional) :
+   A container type for this build that overrides the one specified in the
+   build project.
+1. **image-override** (optional) :
+   The name of an image for this build that overrides the one specified
+   in the build project.
 1. **env-vars-for-codebuild** (optional) :
    A comma-separated list of the names of environment variables
    that the action passes from GitHub Actions to CodeBuild.
@@ -136,7 +145,7 @@ the only CodeBuild Run input you need to provide is the project name.
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     aws-region: us-east-2
 - name: Run CodeBuild
-  uses: aws-actions/aws-codebuild-run-build@v1.0.3
+  uses: aws-actions/aws-codebuild-run-build@v1
   with:
     project-name: CodeBuildProjectName
 ```
@@ -158,10 +167,13 @@ this will overwrite them.
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     aws-region: us-east-2
 - name: Run CodeBuild
-  uses: aws-actions/aws-codebuild-run-build@v1.0.3
+  uses: aws-actions/aws-codebuild-run-build@v1
   with:
     project-name: CodeBuildProjectName
     buildspec-override: path/to/buildspec.yaml
+    compute-type-override: compute-type
+    environment-type-override: environment-type
+    image-override: ecr-image-uri
     env-vars-for-codebuild: |
       custom,
       requester,
