@@ -13,7 +13,7 @@ if (require.main === module) {
 module.exports = run;
 
 async function run() {
-  console.log("*****STARTING CODEBUILD-NEW*****");
+  console.log("*****STARTING CODEBUILD*****");
   try {
     const build = await runBuild();
     core.setOutput("aws-build-id", build.id);

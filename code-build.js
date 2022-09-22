@@ -26,17 +26,9 @@ function runBuild() {
   const params = inputs2Parameters(githubInputs());
   const batch = core.getInput("batch", { required: true });
 
-  console.log(
-    "*****isBatch*****",
-    batch.toString().toLowerCase() === "true",
-    core.getInput("batch"),
-    core.getInput("batch").toString().toLowerCase() === "true"
-  );
   if (batch.toString().toLowerCase() === "true") {
-    console.log("*****isBatch true*****");
     return buildBatch(sdk, params);
   } else {
-    console.log("*****isBatch false*****");
     return build(sdk, params);
   }
 }
